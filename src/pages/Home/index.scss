@@ -1,0 +1,131 @@
+// 1rem = 100px
+// 搜索框
+.home-search {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: transparent !important;
+    z-index: 2;
+
+    .van-search__content {
+        background-color: rgba(241, 244, 244, 0.8);
+    }
+}
+
+// 轮播图
+.home-swipe {
+    .van-swipe-item {
+        width: 100%;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .van-swipe__indicators {
+        left: calc(100% - 60px);
+
+        // 轮播图原点选中颜色
+        .van-swipe__indicator--active {
+            background-color: #fc5051;
+        }
+    }
+}
+
+// 四个图片跳转
+.home-nav-1 {
+    display: flex;
+    background-color: #fff;
+    margin-top: 10px;
+    text-align: center;
+
+    a {
+        flex: 0 0 25%;
+        padding: .22rem;
+    }
+
+    img {
+        width: 1.04rem;
+    }
+
+    p {
+        margin: 0;
+        margin-top: .2rem;
+        font-size: .24rem;
+    }
+}
+
+// 四个方形图片跳转
+.home-nav-2 {
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    margin-top: 10px;
+    padding: .2rem .1rem;
+    justify-content: space-around;
+    text-align: center;
+
+    a {
+        flex: 0 0 calc(25% - .2rem);
+        background-color: #e1e8f8;
+
+        &>img {
+            width: 1.43rem;
+        }
+
+        &>h3 {
+            font-size: .24rem;
+            color: #000;
+        }
+
+        &>p {
+            margin: .22rem;
+            font-size: .18rem;
+        }
+    }
+
+    a:nth-child(2) {
+        background-color: #e0f3fb;
+        color: #6aaac5;
+    }
+
+    a:nth-child(3) {
+        background-color: #fcf7ee;
+        color: #dbbd88;
+    }
+
+    a:nth-child(4) {
+        background-color: #e2dff6;
+        color: #8f86ca;
+    }
+}
+
+// 商品列表
+.home-pro {
+    background-color: #fff;
+    margin-top: .2rem;
+    padding: .28rem .2rem;
+    text-align: center;
+    .title {
+        position: relative;
+        margin: 0;
+        margin-bottom: .3rem;
+        font-size: .32rem;
+        color: #383838;
+    }
+
+    .tag {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -.16rem;
+        display: inline-block;
+        width: .64rem;
+        height: .32rem;
+        font-size: .20rem;
+        line-height: .32rem;
+        border: 1px solid #b4a078;
+        color: #b4a078;
+    }
+}

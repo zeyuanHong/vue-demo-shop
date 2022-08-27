@@ -1,0 +1,18 @@
+html {
+    // 100vw 750px
+    //   x    100px    x = 100 *100/750   
+    font-size: 13.33vw; // 在750px的设计稿100px是13.33vw，1rem=13.33 = 100px。 当屏幕变化，rem单位是等比变化。
+}
+
+body {
+    font-size: 0.16rem;
+    background-color: #f7f7f7;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.font-28 {
+    font-size: 28px;
+}
