@@ -2,7 +2,8 @@ import { createApp } from 'vue'
 import {
     Button, Icon, Tabbar, TabbarItem, Search, Swipe, SwipeItem, NavBar, Sidebar,
     SidebarItem, List, PullRefresh, Picker, Popup, Form, Field, CellGroup, Uploader,
-    Badge, SubmitBar, Checkbox, Card, CheckboxGroup
+    Badge, SubmitBar, Checkbox, Card, CheckboxGroup,
+    AddressList, AddressEdit, Tag, Rate
 } from 'vant'
 
 import App from './App.vue'
@@ -39,4 +40,8 @@ createApp(App)
     .use(Checkbox)
     .use(Card)
     .use(CheckboxGroup)
+    .use(AddressList)
+    .use(AddressEdit)
+    .use(Tag)
+    .use(Rate)
     .mount('#app')
