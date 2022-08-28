@@ -1,6 +1,6 @@
 <template>
   <!-- 若地址展示，则购物车卡片不展示 -->
-  <div v-show="!showAddress">
+  <div v-show="showCom === 'cart'">
     <van-nav-bar :title="`购物车(${cartNum})`" :left-arrow="showBack === 'detail'" @click-left="$router.go(-1)" fixed
       placeholder />
 
@@ -36,21 +36,28 @@
       <van-button @click="handleDel" size="mini" color="linear-gradient(to right, #ff6034, #ee0a24)"
         style="margin-left:5px;">删除</van-button>
       <template #tip>
-        您还未选择收货地址！ <van-button size="mini" type="default" @click="showAddress = true">选择地址</van-button>
+        {{ selectAddressShow }} <van-button size="mini" type="default" @click="showCom = 'address'">选择地址</van-button>
       </template>
     </van-submit-bar>
 
+    <!-- 商品列表组件 -->
     <Recommend />
 
     <div class="cart-submit-placeholder"></div>
   </div>
 
-  <myAddress v-show="showAddress" />
+  <div v-show="showCom === 'address'" class="address">
+    <!-- 地址组件 -->
+    <myAddress :handleAddress="handleAddress" :hideAddress="hideAddress" />
+  </div>
+
 
 </template>
 
 <script>
+import { Notify } from "vant"
 import { mapGetters, mapActions } from 'vuex'
+import { staticUrl } from "../../api/api"
 import Recommend from "../../components/recommend.vue"
 import Address from "../../components/address.vue" // 引入地址组件
 export default {
@@ -61,15 +68,17 @@ export default {
   },
   data() {
     return {
+      staticUrl,
       checked: [],
       checkAll: false,
+      showCom: 'cart', // 展示组件
       showBack: this.$route.query.id, // 获取路径查询参数(?号后面的值)id的值
-      showAddress: false, // 是否显示地址组件
+      selectAddress: '', //用户选择的地址
     }
   },
 
   mounted() {
-    console.log(this.$route);
+    // console.log(this.$route)
   },
 
   computed: {
@@ -93,6 +102,15 @@ export default {
         }
       })
       return count * 100
+    },
+
+    selectAddressShow() { // 计算地址显示内容
+      return this.selectAddress ? this.selectAddress.name + "," + this.selectAddress.tel : "您还没有设置收货地址"
+    },
+
+    selectPro() { // 计算需要购买的商品数据
+      let data = this.cartData.filter((item) => this.checked.includes(item.id + "-" + item.color + "-" + item.size));
+      return data;
     }
   },
 
@@ -152,12 +170,26 @@ export default {
       })
     },
 
+    hideAddress(type) { // 隐藏地址组件
+      this.showCom = type
+    },
+    handleAddress(address) { // 子组件传递选中的地址到该方法
+      this.selectAddress = address;
+    }
+
 
   }
 }
 </script>
 
 <style lang="scss" scoped>
+// 地址组件的样式
+.address {
+  .van-popup {
+    width: 90%;
+  }
+}
+
 .cart-submit-placeholder {
   height: 90px;
 }

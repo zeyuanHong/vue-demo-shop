@@ -14,13 +14,27 @@ export default {
         return JSON.parse(state.profile.shoppingcart).length;
       }
       return 0;
+    },
+    address(state) {// 返回用户地址数据
+      if (state.profile.myaddress) {
+        return JSON.parse(state.profile.myaddress);
+      }
+      return []
     }
   },
   mutations: {
     setProfile(state, paylod) { // 修改用户信息数据
-      localStorage.setItem("profile", JSON.stringify(paylod.data));// 把用户数据存入localStorage缓存
+      if (paylod.data?.id) {
+        localStorage.setItem("profile", JSON.stringify(paylod.data));// 把用户数据存入localStorage缓存
+      }
       state.profile = paylod.data
     },
+
+    setProfileAddress(state, payload) {
+      state.profile.myaddress = payload.data
+      localStorage.setItem("profile", JSON.stringify(state.profile));// 把用户数据存入localStorage缓存
+    }
+
   },
   actions: {
     setProfileAction(context, paylod) {
@@ -42,6 +56,21 @@ export default {
           type: "setProfile"
         })
       })
-    }
+    },
+
+    setProfileAddressAction(context, paylod) { // 更新用户地址的action
+      return new Promise((resolve, reject) => {
+        updateProfile({ // 把修改用户地址的数据更新到后端数据库，成功以后再更新到全局state
+          filedname: "myaddress",
+          filedvalue: JSON.stringify(paylod.data),
+        }, () => {
+          context.commit({
+            data: JSON.stringify(paylod.data),
+            type: "setProfileAddress"
+          })
+          resolve();
+        })
+      })
+    },
   }
 }
