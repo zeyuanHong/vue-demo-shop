@@ -13,7 +13,7 @@
         <dd>
           <!-- 商品卡片 -->
           <van-card :num="item.num" :price="item.price" :title="item.title"
-            thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg">
+            :thumb="staticUrl + '/' + item.img">
             <template #tags>
               <van-tag v-if="item.color" plain type="danger">颜色:{{ item.color }}</van-tag>
               <van-tag v-if="item.size" plain type="danger">尺寸{{ item.size }}</van-tag>
@@ -201,7 +201,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 // 地址组件的样式
 .address,
 .order {

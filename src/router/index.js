@@ -7,6 +7,7 @@ import List from '../pages/List/index.vue'
 import Detail from '../pages/Detail/index.vue'
 import Login from '../pages/Login/index.vue'
 import PayPal from '../pages/PayPal/index.vue'
+import Order from '../pages/Order/index.vue'
 
 
 const router = createRouter({
@@ -53,13 +54,18 @@ const router = createRouter({
             path: "/paypal",
             name: "paypal",
             component: PayPal
+        },
+        {
+            path: "/order",
+            name: "order",
+            component: Order
         }
 
     ]
 })
 
 // 添加路由守卫,如果没登录,就跳转到登录页面
-const whiteRouter = ["/my","/cart"] // 需要权限的路由
+const whiteRouter = ["/my","/cart","/order"] // 需要权限的路由
 router.beforeEach((to,from,next)=>{
     if(whiteRouter.includes(to.path) && !localStorage.getItem('token')){
         return next('/login')

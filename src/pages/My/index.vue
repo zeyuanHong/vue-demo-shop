@@ -45,7 +45,7 @@
       <p>待评价</p>
       <img class="img" src="../../assets/images/my_icon_bg_03.png" />
     </li>
-    <li>
+    <li @click="$router.push('/order')">
       <span class="iconfont icon-wodedingdan"></span>
       <p>我的订单</p>
     </li>
@@ -54,7 +54,7 @@
   <!-- 第二行图标 -->
   <ul class="container mt-2">
     <li>
-      <em>{{ getProfile.mymoney }}</em>
+      <em>{{ getProfile.mymoney.toFixed(2) }}</em>
       <p>余额</p>
     </li>
     <li>
