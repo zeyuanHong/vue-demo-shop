@@ -15,6 +15,12 @@ export default {
       }
       return 0;
     },
+    cartData(state) { // 购物车商品数据
+      if (state.profile.shoppingcart) {
+        return JSON.parse(state.profile.shoppingcart);
+      }
+      return [];
+    },
     address(state) {// 返回用户地址数据
       if (state.profile.myaddress) {
         return JSON.parse(state.profile.myaddress);
@@ -38,7 +44,7 @@ export default {
   },
   actions: {
     setProfileAction(context, paylod) {
-      console.log(paylod)
+      // console.log(paylod)
       context.commit({
         ...paylod,
         type: "setProfile"
@@ -46,7 +52,7 @@ export default {
     },
 
     setProfileCartAction(context, paylod) { // 更新购物车数据
-      console.log(paylod)
+      // console.log(paylod)
       updateProfile({
         filedname: "shoppingcart",
         filedvalue: JSON.stringify(paylod.cartData)
@@ -68,9 +74,10 @@ export default {
             data: JSON.stringify(paylod.data),
             type: "setProfileAddress"
           })
-          resolve();
+          resolve()
         })
       })
     },
+    
   }
 }

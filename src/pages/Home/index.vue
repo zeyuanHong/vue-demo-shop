@@ -51,7 +51,7 @@ import { mapGetters, mapActions } from "vuex"
 import { getAllProType, getBanner } from "../../api/otherServer"
 import { getPro } from "../../api/productService"
 import { staticUrl } from "../../api/api"
-import Product from "../../components/product.vue";//引入商品列表组件
+import Product from "../../components/product.vue" //引入商品列表组件
 export default {
   name: 'Home',
   components: {

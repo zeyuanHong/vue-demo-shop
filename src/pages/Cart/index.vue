@@ -31,6 +31,7 @@
       </dl>
     </van-checkbox-group>
 
+    <!-- 订单提交 -->
     <van-submit-bar class="cart-submit-bar" :price="totalPrice" button-text="提交订单" @submit="onSubmit">
       <van-checkbox @click="handleCheckAll" v-model="checkAll">全选</van-checkbox>
       <van-button @click="handleDel" size="mini" color="linear-gradient(to right, #ff6034, #ee0a24)"
@@ -48,10 +49,14 @@
 
   <div v-show="showCom === 'address'" class="address">
     <!-- 地址组件 -->
-    <myAddress :handleAddress="handleAddress" :hideAddress="hideAddress" />
+    <myAddress :handleAddress="handleAddress" :hideAddress="hideCom" />
   </div>
 
-
+  <div v-show="showCom === 'order'" class="order">
+    <!-- 确认订单组件 -->
+    <confirmOrder :address="selectAddress" :hideCom="hideCom" :selectPro="selectPro" :price="totalPrice"
+      :checked="checked" />
+  </div>
 </template>
 
 <script>
@@ -60,11 +65,13 @@ import { mapGetters, mapActions } from 'vuex'
 import { staticUrl } from "../../api/api"
 import Recommend from "../../components/recommend.vue"
 import Address from "../../components/address.vue" // 引入地址组件
+import ConfirmOrder from "../../components/confirmOrder.vue" // 引入确认订单组件
 export default {
   name: 'Cart',
   components: {
     Recommend,
     myAddress: Address,
+    confirmOrder: ConfirmOrder
   },
   data() {
     return {
@@ -95,7 +102,7 @@ export default {
     totalPrice() {
       let count = 0
       this.cartData.forEach(item => {
-        console.log(this)
+        // console.log(this)
         if (this.checked.includes(item.id + '-' + item.color + '-' + item.size)) {
           console.log(this.checked)
           count += item.price * item.num
@@ -108,7 +115,7 @@ export default {
       return this.selectAddress ? this.selectAddress.name + "," + this.selectAddress.tel : "您还没有设置收货地址"
     },
 
-    selectPro() { // 计算需要购买的商品数据
+    selectPro() { // 计算需要购买的商品数据 需要给确认订单组件传过去
       let data = this.cartData.filter((item) => this.checked.includes(item.id + "-" + item.color + "-" + item.size));
       return data;
     }
@@ -170,7 +177,19 @@ export default {
       })
     },
 
-    hideAddress(type) { // 隐藏地址组件
+    onSubmit() { // 提交订单
+      if (this.checked.length === 0) {
+        Notify("请至少选择一款购买商品");
+        return;
+      }
+      if (!this.selectAddress) {
+        Notify("请选择收货地址");
+        return;
+      }
+      this.showCom = 'order'
+    },
+
+    hideCom(type) { // 隐藏地址组件
       this.showCom = type
     },
     handleAddress(address) { // 子组件传递选中的地址到该方法
@@ -184,7 +203,8 @@ export default {
 
 <style lang="scss" scoped>
 // 地址组件的样式
-.address {
+.address,
+.order {
   .van-popup {
     width: 90%;
   }
