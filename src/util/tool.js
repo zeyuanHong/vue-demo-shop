@@ -9,7 +9,7 @@ function formatNum(num){// 封装单个数字前面补0的方法。
 }
 
 export function formatDate(dateStr, format="YYYY-MM-DD"){
-  var date = dateStr ? new Date(dateStr) : new Date();// 三步运算,？前面为true执行:前面的语句，false执行:后面的语句。
+  var date = dateStr ? new Date(dateStr) : new Date() // 三步运算,？前面为true执行:前面的语句，false执行:后面的语句。
   var year = date.getFullYear()
   var month = date.getMonth() + 1
   var day = date.getDate()

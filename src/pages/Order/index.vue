@@ -21,18 +21,22 @@
         </van-list>
     </div>
     <div v-show="showDetail" class="order-detail">
-        <orderdetail :hideCom="hideOrderDetail" :data="this.selectOrderData" :changeOrderStatus="changeOrderStatus" />
+        <OrderDetail :hideCom="hideOrderDetail" :data="this.selectOrderData" :changeOrderStatus="changeOrderStatus" />
     </div>
 </template>
 
 <script>
 import { Dialog } from "vant"
 import { staticUrl } from "../../api/api"
-import { getOrders, delOrder } from "../../api/orderService"
+import { getOrders, delOrder ,updateOrders} from "../../api/orderService"
 import { formatDate } from "../../util/tool"
 import { ORDER_STATUS } from "../../config/index"
+import OrderDetail from "../../components/orderDetail.vue"
 export default {
     name: 'Order',
+    components: {
+        OrderDetail
+    },
     data() {
         return {
             staticUrl,
@@ -49,17 +53,24 @@ export default {
     mounted() {
         this.init()
         
-        
+        // 模拟状态
+        updateOrders({
+            orderid: "b34701c4-1f27-42c2-b6ac-265b6df19745",
+            status: 2,
+            EMSname: "顺丰快递",
+            EMS: 121212
+        }, () => {})
+
     },
 
     methods: {
         init() {
             getOrders({ page: this.page }, (res) => {
                 // 获取用户订单数据
-                let data = res.data[0].data;
+                let data = res.data[0].data
                 if (data.length === 10) {
                     // 如果返回的数据长度等于10，表示可能有分页数据。
-                    this.page++;
+                    this.page++
                 } else {
                     // 如果返回数据长度小于10，表示没有分页，则不需要触发分页函数。
                     this.finished = true
@@ -71,12 +82,12 @@ export default {
 
         formatDateStr(str) {
             // 格式化时间显示
-            return formatDate(str);
+            return formatDate(str)
         },
         onLoad() {
             // 分页事件
-            this.loading = true;
-            this.init();
+            this.loading = true
+            this.init()
         },
 
         handleDelOrder(orderId, index) {
@@ -100,19 +111,19 @@ export default {
         },
 
         hideOrderDetail() { // 隐藏查看订单详情
-            this.showDetail = false;
+            this.showDetail = false
         },
         selectOrder(data) { // 查看订单详情
-            this.selectOrderData = data;
-            this.showDetail = true;
+            this.selectOrderData = data
+            this.showDetail = true
         },
 
         changeOrderStatus(orderid, key, value) { // 修改当前订单的任意字段值
             for (let i = 0; i < this.orderList.length; i++) {
                 if (this.orderList[i].orderid === orderid) {
-                    this.orderList[i][key] = value;
-                    this.orderList = [...this.orderList];
-                    break;
+                    this.orderList[i][key] = value
+                    this.orderList = [...this.orderList]
+                    break
                 }
             }
         }
