@@ -1,5 +1,5 @@
 const baseUrl = "/"
-const staticUrl = "https://8i98.com/apidoc"
+const staticUrl = "http://8i98.com/apidoc"
 export default {
   getBanner: `${baseUrl}dapi/vapi/getBanner`, //获取banner图片
   getAllProType: `${baseUrl}dapi/vapi/getAllProType`, //获取产品分类数据
