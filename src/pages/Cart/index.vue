@@ -132,9 +132,13 @@ export default {
       }
     },
 
-    // 点击全选按钮效果
-    handleCheckAll(value) {
-      this.$refs.checkboxGroup.toggleAll(value);
+    // 全选框的值变化要同步到单选框
+    handleCheckAll(value) { //通过判断所有商品是否都被选中来判断全选框的功能式全选还是反选
+      if(this.checked.length === this.cartNum){ //如果所有商品都被选中，那么就是反选
+        this.$refs.checkboxGroup.toggleAll(value)
+      }else{ //否则就是全选
+        this.$refs.checkboxGroup.toggleAll(true)
+      }
     },
 
     // 删除购物车商品

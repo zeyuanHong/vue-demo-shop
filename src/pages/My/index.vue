@@ -54,7 +54,7 @@
   <!-- 第二行图标 -->
   <ul class="container mt-2">
     <li>
-      <em>{{ getProfile.mymoney.toFixed(2) }}</em>
+      <em>{{ getProfile.mymoney }}</em>
       <p>余额</p>
     </li>
     <li>

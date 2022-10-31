@@ -1,6 +1,6 @@
 <template>
   <router-view></router-view>
-  <!-- 开启安全区域 -->
+  <!-- 开启安全区域  -->
   <van-tabbar route :placeholder="true" fixed v-model="active" active-color="#fc5051">
     <van-tabbar-item to="/">
       <template #icon="props">
